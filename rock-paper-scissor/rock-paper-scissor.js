@@ -89,10 +89,6 @@ function playRound(playerSelection) {
 
 
 
-  // () => {     alert(rpsButton.id); }); });
-
-
-
 // THINGS I LEARNED HERE
 // if needs () before opening the {}
 // metodo per avere numberi casuali da 0 a X > Math.Random()*x > e poi Math.floor 
