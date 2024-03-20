@@ -63,3 +63,5 @@ for (let i=1; i<6; i++) {
 // if user inputs scissor and computer inputs paper, then user wins, else computer wins
 
 
+// # header1; #### header 4; **this comes out as bold** 
+// <bold> asda <asd> 
