@@ -1,13 +1,28 @@
+// Create three buttons, one for each selection. 
+// Add an event listener to the buttons that call your playRound function with the correct 
+// playerSelection every time a button is clicked. (you can keep the console.logs for this step)
+// Add a div for displaying results and change all of your console.logs into DOM methods.
+// Display the running score, and announce a winner of the game once one player reaches 5 points.
+
+
 let playerScore = 0;
 let computerScore = 0;
 
+const pScore = document.getElementById("pScore");
+const cScore = document.getElementById("cScore");
 
-for (let i=1; i<6; i++) {
-    console.log(`Round ${i} - Current Scores - Player: ${playerScore}, Computer: ${computerScore}`);
 
-    let playerSelection = prompt(`Round ${i}: type your selection between rock, paper, scissor`);
-    let computerSelection = Math.floor(Math.random()*3);
+const buttons = document.querySelectorAll("button");
 
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button);
+    });
+});
+
+
+function playRound(playerSelection) {
+    let computerSelection = Math.floor(Math.random() * 3);
     if (computerSelection === 0) {
         computerSelection = "rock";
     } 
@@ -15,33 +30,67 @@ for (let i=1; i<6; i++) {
         computerSelection = "paper";
     }
     else if (computerSelection === 2) {
-        computerSelection = "scissor";
+        computerSelection = "scissors";
     }
-    console.log(`Computer's choice: ${computerSelection}`);
-    console.log(`Player's choice: ${playerSelection}`);
 
-
+    const picks = document.createElement("p");
+    picks.textContent = `Last round, you picked ${playerSelection.id} and the computer picked ${computerSelection}`;
+    scores.appendChild(picks);
 
     function compareValues(playerSelection, computerSelection) {
-        if (playerSelection.toLowerCase() == computerSelection) {
-            console.log(`Result of round ${i}: You both picked ${computerSelection} and nobody wins`)
+        
+        if (playerSelection.id == computerSelection) {
+            console.log(`You both picked ${computerSelection} and nobody wins`)
         }
         else if (
-        (playerSelection == "rock" && computerSelection == "scissor") || 
-        (playerSelection == "paper" && computerSelection == "rock") ||
-        (playerSelection == "scissor" && computerSelection == "paper")
+        (playerSelection.id == "rock" && computerSelection == "scissors") || 
+        (playerSelection.id == "paper" && computerSelection == "rock") ||
+        (playerSelection.id == "scissors" && computerSelection == "paper")
         ) {
-            console.log(`Result of round ${i}: Well done, you won!`);
+            console.log(`Well done, you won!`);
             playerScore = playerScore +1;
+            const pScoreNew = document.createTextNode(`Your score: ${playerScore}`);
+            pScore.replaceChild(pScoreNew, pScore.childNodes[0]);
+
         }
         else {
-            console.log(`Result of round ${i}: GG you lost`);
+            console.log(`GG you lost`);
             computerScore = computerScore +1;
-        }
+            const cScoreNew = document.createTextNode(`Computer score: ${computerScore}`);
+            cScore.replaceChild(cScoreNew, cScore.childNodes[0]);
+
+        };
+
+        if (computerScore === 5 || playerScore === 5) {
+            const list = document.getElementById("scores");
+            while (list.lastChild.id != "cScore") {
+                list.removeChild(list.lastChild);
+            }
+
+            const winner = document.createElement("p");
+
+            if (computerScore === 5) {
+            winner.textContent = `The computer won!`;
+            scores.appendChild(winner);
+            } else {
+                winner.textContent = `You won!`;
+                scores.appendChild(winner);
+            };
+        };
+
         }
         console.log(compareValues(playerSelection, computerSelection));
 
-            }       
+            }      
+
+            
+          
+
+
+
+
+  // () => {     alert(rpsButton.id); }); });
+
 
 
 // THINGS I LEARNED HERE
